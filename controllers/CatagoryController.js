@@ -50,7 +50,7 @@ exports.updateCatagory= aysncHandler(async(req,res)=>{
 //@Access                  Private
 exports.deleteCatagory= aysncHandler(async(req,res)=>{
     const {id} = req.params
-    const deletedCatagory =await catagoryModel.findOneAndDelete({_id: id})
+    const deletedCatagory =await catagoryModel.findOneAndDelete(id)
     if(!deletedCatagory){
         res.status(404).json({msg: "id not found"})
     }

@@ -5,6 +5,6 @@ const {getCatagory,createCatagory, getCatagoryByid, updateCatagory, deleteCatago
 const CatagoryRouter = express.Router()
 
 CatagoryRouter.route('/').get(getCatagory).post(createCatagory)
-CatagoryRouter.get('/:id',getCatagoryByid).put('/:id',updateCatagory).delete('/:id',deleteCatagory)
+CatagoryRouter.route('/:id').get(getCatagoryByid).put(updateCatagory).delete(deleteCatagory)
 
 module.exports={CatagoryRouter}
