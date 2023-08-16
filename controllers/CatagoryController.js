@@ -3,8 +3,8 @@ const slugify = require('slugify')
 const aysncHandler= require('express-async-handler')
 
 
-//@Get Catagories   /api/v1/
-//@                    Access public
+//@Get All Catagories   /api/v1/
+//@Access               public
 exports.getCatagory=aysncHandler( async(req,res)=>{
     const page = req.query.page * 1 || 1
     const limit = req.query.limit *1 || 5
@@ -14,8 +14,19 @@ exports.getCatagory=aysncHandler( async(req,res)=>{
 })
 
 
+//@Get one Catagory by id   /api/v1/
+//@Access                   public
+exports.getCatagoryByid=aysncHandler( async(req,res)=>{
+    const {id} = req.params
+    const catagoryId = await catagoryModel.findById(id)
+    if(!catagoryId){
+        res.status(404).json({msg:"Id not found"})
+    }
+    res.status(200).json({data:catagoryId})
+})
+
 //@Create Catagories   /api/v1/
-//@                    Access Private
+//@Access              Private
 exports.createCatagory =aysncHandler(async (req,res)=>{
     const name = req.body.name
     await catagoryModel.create({name, slug:slugify(name)})
