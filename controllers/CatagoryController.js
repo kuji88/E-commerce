@@ -1,6 +1,7 @@
 const catagoryModel = require('../models/CatagoriesModel')
 const slugify = require('slugify')
 const aysncHandler= require('express-async-handler')
+const {ApiError} = require('../utils/ApiError')
 
 
 //@Get All Catagories   /api/v1/
@@ -16,11 +17,11 @@ exports.getCatagory=aysncHandler( async(req,res)=>{
 
 //@Get one Catagory by id   /api/v1/:id
 //@Access                   public
-exports.getCatagoryByid=aysncHandler( async(req,res)=>{
+exports.getCatagoryByid=aysncHandler( async(req,res,next)=>{
     const {id} = req.params
     const catagoryId = await catagoryModel.findById(id)
     if(!catagoryId){
-        res.status(404).json({msg:"Id not found"})
+       return next(new ApiError('Id not found',404))
     }
     res.status(200).json({data:catagoryId})
 })
@@ -36,23 +37,23 @@ exports.createCatagory =aysncHandler(async (req,res)=>{
 
 //@Update a Catagory   /api/v1/id:
 //@Access                  Private
-exports.updateCatagory= aysncHandler(async(req,res)=>{
+exports.updateCatagory= aysncHandler(async(req,res,next)=>{
     const {id}= req.params
     const name= req.body.name
     const change= await catagoryModel.findOneAndUpdate({_id: id},{name: name, slug: slugify(name)},{new: true})
     if(!change){
-        res.status(404).json({msg:"Id not found"})
+        return next(new ApiError('Id not found',404))
     }
     res.status(200).json({date: change})
 })
 
 //@Delete a Catagory  /api/v1/id:
 //@Access                  Private
-exports.deleteCatagory= aysncHandler(async(req,res)=>{
+exports.deleteCatagory= aysncHandler(async(req,res,next)=>{
     const {id} = req.params
-    const deletedCatagory =await catagoryModel.findOneAndDelete(id)
+    const deletedCatagory =await catagoryModel.findOneAndDelete(id) 
     if(!deletedCatagory){
-        res.status(404).json({msg: "id not found"})
+        return next(new ApiError('Id not found',404))
     }
     res.status(200).json({Message:"The Catagory deleted"})
 })
