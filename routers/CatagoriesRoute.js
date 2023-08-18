@@ -1,5 +1,4 @@
 const express = require('express')
-const {validationResult,param} = require('express-validator')
 const {getCatagory,createCatagory, getCatagoryByid, updateCatagory, deleteCatagory} = require('../controllers/CatagoryController')
 const { createCatagoryValid, updateCatagoryValid, deleteCatagoryValid, getCatagoryValid } = require('../utils/CatagoriesValdiator/validator')
 
