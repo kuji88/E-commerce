@@ -5,7 +5,7 @@ const DB = require("./config/Database");
 const { CatagoryRouter } = require("./routers/CatagoriesRoute");
 const { ApiError } = require("./utils/ApiError");
 const globalError = require("./middlewares/errorHandler");
-const { SubCatagory } = require("./routers/SubCatagoryRoute");
+const { SubCatagoryRouter } = require("./routers/SubCatagoryRoute");
 
 //* Express app
 const app = express();
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "development") {
 
 //!Routes
 app.use("/api/v1/catagory", CatagoryRouter);
-app.use("/api/v1/catagory/subCatagory", SubCatagory);
+app.use("/api/v1/subCatagory", SubCatagoryRouter);
 
 //* Route Error
 app.all("*", (req, res, next) => {

@@ -9,10 +9,11 @@ exports.getCatagory = aysncHandler(async (req, res) => {
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 5;
   const skip = (page - 1) * limit;
-  const Catagories = await catagoryModel.find({}).skip(skip).limit(limit);
+  const catagories = await catagoryModel.find({}).skip(skip).limit(limit);
+
   res
     .status(200)
-    .json({ results: Catagories.length, page: page, data: Catagories });
+    .json({ results: catagories.length, page: page, data: catagories });
 });
 
 //@Get one Catagory by id   /api/v1/:id

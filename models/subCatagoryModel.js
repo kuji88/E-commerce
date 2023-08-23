@@ -17,13 +17,15 @@ const subCatagorySchema = new mongoose.Schema(
     img: {
       type: String,
     },
-    Catagory: {
+    catagory: {
       type: mongoose.Schema.ObjectId,
-      ref: "Catagory",
+      ref: "catagory",
       required: [true, "SubCatagory must be belong with MainCatagory"],
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("subCatagory", subCatagorySchema);
+const SubModelSchema = mongoose.model("subCatagory", subCatagorySchema);
+
+module.exports = SubModelSchema;
