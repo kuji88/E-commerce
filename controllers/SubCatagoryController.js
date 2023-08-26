@@ -29,6 +29,13 @@ exports.getSubCatagoryByid = aysncHandler(async (req, res, next) => {
   res.status(200).json({ data: catagoryId });
 });
 
+//! middleware for creatSubCatagory
+exports.createSubMiddleware = (req, res, next) => {
+  if (!req.body.catagory) {
+    req.body.catagory = req.params.catagoryID;
+  }
+  next();
+};
 exports.createSubCatagory = aysncHandler(async (req, res, next) => {
   const { name, catagory } = req.body;
   const SubCatagory = await SubModelSchema.create({
