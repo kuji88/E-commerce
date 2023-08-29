@@ -7,6 +7,7 @@ const { ApiError } = require("./utils/ApiError");
 const globalError = require("./middlewares/errorHandler");
 const { SubCatagoryRouter } = require("./routers/SubCatagoryRoute");
 const { BrandsRouter } = require("./routers/BrandsRoute");
+const ProductRouter = require("./routers/ProductRoute");
 
 //* Express app
 const app = express();
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/api/v1/catagory", CatagoryRouter);
 app.use("/api/v1/subCatagory", SubCatagoryRouter);
 app.use("/api/v1/brands", BrandsRouter);
+app.use("/api/v1/product", ProductRouter);
 
 //* Route Error
 app.all("*", (req, res, next) => {
